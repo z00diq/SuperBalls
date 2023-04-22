@@ -81,12 +81,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51a39da372a79a4eb06d7345159b788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _level: 0
+  Trigger: {fileID: 3901767570502082788}
   _numberText: {fileID: 3901767570407563594}
   _modelTransform: {fileID: 3901767569098136403}
   _modelRenderer: {fileID: 3901767570478098458}
   _collider: {fileID: 3901767571162444486}
-  _trigger: {fileID: 3901767570502082788}
   _ballSettings: {fileID: 11400000, guid: bf50cbca585098e4a9f505acbc1e794c, type: 2}
   _rigidBody: {fileID: 7449442269442183135}
 --- !u!54 &7449442269442183135
@@ -103,7 +102,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!1 &3901767570407563593
 GameObject:
@@ -250,7 +249,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3901767570478098463}
   - component: {fileID: 3901767570478098460}
-  - component: {fileID: 3901767570478098461}
   - component: {fileID: 3901767570478098458}
   m_Layer: 0
   m_Name: Sphere
@@ -282,19 +280,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3901767570478098459}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!135 &3901767570478098461
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3901767570478098459}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &3901767570478098458
 MeshRenderer:
   m_ObjectHideFlags: 0

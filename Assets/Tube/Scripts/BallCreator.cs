@@ -7,10 +7,10 @@ public class BallCreator : MonoBehaviour
     [SerializeField] private Ball _ballPrefab;
     [SerializeField] private Transform _spawn;
     [SerializeField] private int _maxBallLevelNumber=10;
+    [SerializeField] private RayConfigurer _rayConfigurer;
     private Ball _ballInTube;
     private Ball _ballInSpawn;
 
-    private float tim = 0;
     private void Start()
     {
         CreateBall();
@@ -23,13 +23,12 @@ public class BallCreator : MonoBehaviour
         {
             PushBall();
         }
-        tim += Time.deltaTime;
-        if (tim >= 0.5f)
-        {
-            PushBall();
-            tim = 0;
-        }
-
+        //tim += Time.deltaTime;
+        //if (tim >= 0.5f)
+        //{
+        //    PushBall();
+        //    tim = 0;
+        //}
     }
 
     private void CreateBall()
@@ -45,6 +44,7 @@ public class BallCreator : MonoBehaviour
             return;
         _ballInSpawn.transform.parent = null;
         _ballInSpawn.BecomeUnkinematic();
+        _rayConfigurer.UnsetBll();
         _ballInSpawn = null;
         StartCoroutine(nameof(MoveBallOnSpawn));
 
@@ -60,6 +60,7 @@ public class BallCreator : MonoBehaviour
         }
         _ballInSpawn = _ballInTube;
         _ballInSpawn.transform.parent = _spawn;
+        _rayConfigurer.SetBall(_ballInSpawn);
         _ballInTube = null;
         CreateBall();
     }
