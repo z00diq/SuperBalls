@@ -35,6 +35,7 @@ public class BallCreator : MonoBehaviour
     {
         _ballInTube = Instantiate(_ballPrefab, transform.position, Quaternion.identity);
         _ballInTube.SetLevel(Random.Range(0,_maxBallLevelNumber));
+        _ballInTube.SetModel();
         _ballInTube.BecomeKinematic();
     }
 

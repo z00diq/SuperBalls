@@ -13,10 +13,10 @@ public class ActiveItem : MonoBehaviour
     protected float _radius;
     protected bool InCollision = false;
 
-    public virtual void SetLevel(int level)
+    public virtual void LevelUp()
     {
-        Level = level;
-        int number = (int)Mathf.Pow(2, level + 1);
+        Level++;
+        int number = (int)Mathf.Pow(2, Level + 1);
         _numberText.text = number.ToString();
     }
 
@@ -25,8 +25,7 @@ public class ActiveItem : MonoBehaviour
     [ContextMenu("Increase Level")]
     private void IcnreaseLevel()
     {
-        Level++;
-        SetLevel(Level);
+        LevelUp();
     }
 
     private void OnTriggerEnter(Collider other)

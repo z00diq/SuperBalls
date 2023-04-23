@@ -11,23 +11,32 @@ public class Ball : ActiveItem
     [SerializeField] private BallSettings _ballSettings;
     [SerializeField] private Rigidbody _rigidBody;
 
-    public override void SetLevel(int level)
+    public override void LevelUp()
     {
-        base.SetLevel(level);
+        base.LevelUp();
+        SetModel();
+        BecomeKinematic();
+        BecomeUnkinematic();
+    }
 
+    public void SetModel()
+    {
         _radius = Mathf.Lerp(_ballSettings.MinRadius, _ballSettings.MaxRadius, Level / 10f);
         _collider.radius = _radius;
         _modelRenderer.material = _ballSettings.GetMaterial(Level);
         _modelTransform.localScale = _radius * Vector3.one * 2f;
         Trigger.radius = _radius + _radius * 0.1f;
         InCollision = false;
-        BecomeKinematic();
-        BecomeUnkinematic();
     }
 
-    internal int GetLevel()
+    public int GetLevel()
     {
         return Level;
+    }
+
+    public void SetLevel(int value)
+    {
+        Level = value;
     }
 
     public void BecomeKinematic()
@@ -48,36 +57,11 @@ public class Ball : ActiveItem
  
     protected override void ResponseTrigger(ActiveItem trigger)
     {
-        StartMergeCoroutine(trigger);
+        
     }
 
-    private void StartMergeCoroutine(ActiveItem activeItem)
-    {
-        var ball = activeItem as Ball;
-
-        if (ball != null) 
-        {
-            ball.BecomeKinematic();
-            CoroutineExecutor.StartCoroutine(Merge(), this);
-        }
-
-        IEnumerator Merge()
-        {
-            while (ball.transform.position != transform.position)
-            {
-                ball.transform.position = Vector3.MoveTowards(ball.transform.position,
-                    transform.position, Time.deltaTime*3f);
-                yield return null;
-            }
-
-            ball.Destroy();
-            SetLevel(++Level);
-        }
-    }
-
-   
-
-    private void Destroy()
+  
+    public void Destroy()
     {
         Destroy(gameObject);
     }
