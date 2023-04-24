@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -11,16 +12,21 @@ public class ActiveItem : MonoBehaviour
 
     protected int Level=0;
     protected float _radius;
-    protected bool InCollision = false;
 
     public virtual void LevelUp()
     {
         Level++;
+        SetLevel();
+        
+    }
+
+    public virtual void SetLevel()
+    {
         int number = (int)Mathf.Pow(2, Level + 1);
         _numberText.text = number.ToString();
     }
 
-    protected virtual void ResponseTrigger(ActiveItem trigger){}
+    protected async virtual Task ResponseTrigger(ActiveItem trigger){}
 
     [ContextMenu("Increase Level")]
     private void IcnreaseLevel()
@@ -28,24 +34,13 @@ public class ActiveItem : MonoBehaviour
         LevelUp();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private async void OnTriggerEnter(Collider other)
     {
         if (other.attachedRigidbody)
-        {
             if (other.attachedRigidbody.TryGetComponent(out ActiveItem otherActiveItem))
-                if (otherActiveItem.InCollision == false)
-                    if (otherActiveItem.Level == Level)
-                    {
-                        otherActiveItem.Trigger.enabled = false;
-                        otherActiveItem.InCollision = true;
-                        InCollision = true;
-                        ResponseTrigger(otherActiveItem);
-                    }
-        } 
-        else
-        {
-            
-        }
+                if (otherActiveItem.Level == Level)
+                    await ResponseTrigger(otherActiveItem);
+       
 
     }
 

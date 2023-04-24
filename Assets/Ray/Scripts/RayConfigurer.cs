@@ -12,13 +12,13 @@ public class RayConfigurer : MonoBehaviour
     public void SetBall(Ball ball)
     {
         _ballInSpawn = ball;
-        _ray.SetUpRay(_ballInSpawn.transform.position, _ballInSpawn.transform.localScale.x / 2);
+        _ray.SetUpRay(_ballInSpawn.transform.position, _ballInSpawn.GetRadius());
         _ray.gameObject.SetActive(true);
         ChangeMaterialColor(ball.GetLevel());
 
     } 
 
-    public void UnsetBll()
+    public void UnsetBall()
     {
         _ballInSpawn = null;
         _ray.gameObject.SetActive(false);

@@ -45,7 +45,7 @@ public class BallCreator : MonoBehaviour
             return;
         _ballInSpawn.transform.parent = null;
         _ballInSpawn.BecomeUnkinematic();
-        _rayConfigurer.UnsetBll();
+        _rayConfigurer.UnsetBall();
         _ballInSpawn = null;
         StartCoroutine(nameof(MoveBallOnSpawn));
 

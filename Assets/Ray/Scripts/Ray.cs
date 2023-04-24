@@ -19,7 +19,7 @@ public class Ray : MonoBehaviour
     {
         _rayRadius = rayRadius;
         _ray = new UnityEngine.Ray(origin, Vector3.down);
-        transform.parent.localScale = new Vector3(_rayRadius, 0f, 1f);
+        transform.parent.localScale = new Vector3(_rayRadius*2, 0f, 1f);
 
     }
 }

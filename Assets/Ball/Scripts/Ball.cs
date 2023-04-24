@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Ball : ActiveItem
@@ -19,6 +20,11 @@ public class Ball : ActiveItem
         BecomeUnkinematic();
     }
 
+    public float GetRadius() 
+    {
+        return _radius;
+    }
+
     public void SetModel()
     {
         _radius = Mathf.Lerp(_ballSettings.MinRadius, _ballSettings.MaxRadius, Level / 10f);
@@ -26,7 +32,6 @@ public class Ball : ActiveItem
         _modelRenderer.material = _ballSettings.GetMaterial(Level);
         _modelTransform.localScale = _radius * Vector3.one * 2f;
         Trigger.radius = _radius + _radius * 0.1f;
-        InCollision = false;
     }
 
     public int GetLevel()
@@ -37,6 +42,7 @@ public class Ball : ActiveItem
     public void SetLevel(int value)
     {
         Level = value;
+        base.SetLevel();
     }
 
     public void BecomeKinematic()
@@ -55,12 +61,11 @@ public class Ball : ActiveItem
         _rigidBody.AddForce(Vector3.down, ForceMode.VelocityChange);
     }
  
-    protected override void ResponseTrigger(ActiveItem trigger)
+    protected async override Task ResponseTrigger(ActiveItem trigger)
     {
-        
+        await BallMergeExecutor.CreateMerging().StartMerging(this, (Ball)trigger);
     }
 
-  
     public void Destroy()
     {
         Destroy(gameObject);
